@@ -47,22 +47,33 @@ export default Ember.Component.extend({
       url: this.get('url'),
       componentName: 'facebook-share'
     });
+
     if (this.get('useFacebookUi')) { return; } // doesn't need a click handler
+
     var self = this;
+
     function showDialog(FB) {
-      FB.ui(
-        {
-          method: 'share',
-          href: self.get('url'),
-        },
-        function(response) {
-          if (response && !response.error_code) {
-            self.socialApiClient.shared('facebook', response);
-          } else {
-            Ember.Logger.error('Error while posting.');
+      // if we do use the 'a' tag but there's no appId, uses sharer.php script
+      if (self.get('isCustomLink') && !self.get('socialApiClient').appId()) {
+        var url = encodeURIComponent(self.get('url'));
+        var windowFeatures = "height=436,width=626,resizable=yes,scrollbars=no";
+
+        window.open("https://www.facebook.com/sharer/sharer.php?u=" + url, "pop", windowFeatures);
+      } else {
+        FB.ui(
+          {
+            method: 'share',
+            href: self.get('url'),
+          },
+          function(response) {
+            if (response && !response.error_code) {
+              self.socialApiClient.shared('facebook', response);
+            } else {
+              Ember.Logger.error('Error while posting.');
+            }
           }
-        }
-      );
+        );
+      }
     }
     if (this.FB) {
       showDialog(this.FB);
