@@ -1,0 +1,1 @@
+export { default } from 'ember-social/components/twitter-follow';
