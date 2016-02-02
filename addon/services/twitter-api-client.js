@@ -47,12 +47,12 @@ export default Ember.Object.extend({
 
   subscribeToTweetEvent: function() {
     var tracking = this.tracking;
-    if(!tracking) { return; }
+    if (!tracking) { return; }
     this._onTweet = function(ev) {
-      if(tracking.shared) { tracking.shared('twitter-tweet', ev); }
+      if (tracking.shared) { tracking.shared('twitter-tweet', ev); }
     };
     this._onClick = function(ev) {
-      if(tracking.clicked) { tracking.clicked('twitter-tweet', ev); }
+      if (tracking.clicked) { tracking.clicked('twitter-tweet', ev); }
     };
     this.twttr.events.bind('tweet', this._onTweet);
     this.twttr.events.bind('click', this._onClick);
@@ -60,31 +60,31 @@ export default Ember.Object.extend({
 
   subscribeToFollowEvent: function() {
     var tracking = this.tracking;
-    if(!tracking) { return; }
+    if (!tracking) { return; }
     this._onFollow = function(ev) {
-      if(tracking.shared) { tracking.shared('twitter-follow', ev); }
+      if (tracking.shared) { tracking.shared('twitter-follow', ev); }
     };
     this._onClick = function(ev) {
-      if(tracking.clicked) { tracking.clicked('twitter-follow', ev); }
+      if (tracking.clicked) { tracking.clicked('twitter-follow', ev); }
     };
     this.twttr.events.bind('follow', this._onFollow);
     this.twttr.events.bind('click', this._onClick);
   },
 
   unsubscribeFromTweetEvents: function() {
-    if(this._onTweet) {
+    if (this._onTweet) {
       this.twttr.events.unbind('tweet', this._onTweet);
     }
-    if(this._onClick) {
+    if (this._onClick) {
       this.twttr.events.unbind('click', this._onClick);
     }
   },
 
   unsubscribeFromFollowEvents: function() {
-    if(this._onFollow) {
+    if (this._onFollow) {
       this.twttr.events.unbind('follow', this._onFollow);
     }
-    if(this._onClick) {
+    if (this._onClick) {
       this.twttr.events.unbind('click', this._onClick);
     }
   },
