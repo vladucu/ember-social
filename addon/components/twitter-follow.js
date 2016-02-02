@@ -44,6 +44,7 @@ export default Ember.Component.extend({
 
   createTwitterFollowButton: Ember.on('twitterLoaded', function() {
     if (this.get('useWebIntent')) { return; }
+
     var username = this.get('username');
     if (username) {
       this.twttr.widgets.createFollowButton(
