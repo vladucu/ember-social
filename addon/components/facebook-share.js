@@ -67,7 +67,10 @@ export default Ember.Component.extend({
           },
           function(response) {
             if (response && !response.error_code) {
-              self.socialApiClient.shared('facebook', response);
+              self.socialApiClient.shared({
+                url: self.get('url'),
+                componentName: 'facebook-share'
+              });
             } else {
               Ember.Logger.error('Error while posting.');
             }

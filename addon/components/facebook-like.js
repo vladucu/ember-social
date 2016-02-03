@@ -10,6 +10,15 @@ export default Ember.Component.extend({
   createFacebookLikeButton: Ember.on('didInsertElement', function() {
     var self = this;
     this.socialApiClient.load().then(function(FB) {
+      // subscribe to Facebook Like event
+      FB.Event.subscribe('edge.create', (url, html_element) => {
+        self.socialApiClient.shared({
+          url: url,
+          html_element: html_element,
+          componentName: 'facebook-like',
+        });
+      });
+
       if (self._state !== 'inDOM') { return; }
       var attrs = [];
       var url = self.get('url');
@@ -28,5 +37,4 @@ export default Ember.Component.extend({
       FB.XFBML.parse(self.get('element'));
     });
   })
-
 });
