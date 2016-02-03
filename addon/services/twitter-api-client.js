@@ -49,10 +49,20 @@ export default Ember.Object.extend({
     var tracking = this.tracking;
     if (!tracking) { return; }
     this._onTweet = function(ev) {
-      if (tracking.shared) { tracking.shared('twitter-tweet', ev); }
+      if (tracking.shared) {
+        tracking.shared({
+          response: ev,
+          componentName: 'twitter-tweet',
+        });
+      }
     };
     this._onClick = function(ev) {
-      if (tracking.clicked) { tracking.clicked('twitter-tweet', ev); }
+      if (tracking.clicked) {
+        tracking.clicked({
+          response: ev,
+          componentName: 'twitter-tweet',
+        });
+      }
     };
     this.twttr.events.bind('tweet', this._onTweet);
     this.twttr.events.bind('click', this._onClick);
@@ -62,10 +72,20 @@ export default Ember.Object.extend({
     var tracking = this.tracking;
     if (!tracking) { return; }
     this._onFollow = function(ev) {
-      if (tracking.shared) { tracking.shared('twitter-follow', ev); }
+      if (tracking.shared) {
+        tracking.shared({
+          response: ev,
+          componentName: 'twitter-follow',
+        });
+      }
     };
     this._onClick = function(ev) {
-      if (tracking.clicked) { tracking.clicked('twitter-follow', ev); }
+      if (tracking.clicked) {
+        tracking.clicked({
+          response: ev,
+          componentName: 'twitter-follow',
+        });
+      }
     };
     this.twttr.events.bind('follow', this._onFollow);
     this.twttr.events.bind('click', this._onClick);
